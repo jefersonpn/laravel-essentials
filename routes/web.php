@@ -26,3 +26,17 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/test', function() { return "Good Bye"; });
 
 Route::get('/rooms', ShowRoomsController::class);
+
+//We can use one by one like this
+
+/* Route::get('/bookings', 'BookingController@index');//Index
+Route::get('/bookings/create', 'BookingController@create');//Create
+Route::post('/bookings', 'BookingController@store');//Store
+Route::get('/bookings/{booking}', 'BookingController@show');//Show
+Route::get('/bookings/{booking}/edit', 'BookingController@edit');//Edit
+Route::put('/bookings/{booking}', 'BookingController@update');//Update
+Route::delete('/bookings/{booking}', 'BookingController@destroy');//Delete */
+
+// Or even better only one code row.
+
+Route::resource('bookings', 'BookingController');
