@@ -1,8 +1,8 @@
 <?php
 
-
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ShowRoomsController;
+use App\Http\Controllers\BookingController;
 
 /*
 |--------------------------------------------------------------------------
