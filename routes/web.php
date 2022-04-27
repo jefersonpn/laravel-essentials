@@ -6,7 +6,7 @@ use App\Http\Controllers\BookingController;
 
 /*
 |--------------------------------------------------------------------------
-| Web Routes
+| Web Routes    don't forget to add ::class at the end of the Controller name, and run the command "php artisan optimize" 
 |--------------------------------------------------------------------------
 |
 | Here is where you can register web routes for your application. These
@@ -39,4 +39,4 @@ Route::delete('/bookings/{booking}', 'BookingController@destroy');//Delete */
 
 // Or even better only one code row.
 
-Route::resource('bookings', 'BookingController');
+Route::resource('/bookings', BookingController::class);
