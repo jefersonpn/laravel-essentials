@@ -14,7 +14,7 @@ class BookingController extends Controller
      */
     public function index()
     {
-        //
+        \DB::table('booking')->get()->dd(); //Tests that the comunication with database is working, and Dumps the data and Die
     }
 
     /**
