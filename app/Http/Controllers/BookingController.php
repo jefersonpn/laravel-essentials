@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Booking;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class BookingController extends Controller
 {
@@ -14,7 +15,10 @@ class BookingController extends Controller
      */
     public function index()
     {
-        \DB::table('booking')->get()->dd(); //Tests that the comunication with database is working, and Dumps the data and Die
+     //   \DB::table('booking')->get()->dd(); //Tests that the comunication with database is working, and Dumps the data and Die
+        $bookings = DB::table('bookings')->get();
+        return view('bookings.index')
+            ->with('bookings', $bookings);
     }
 
     /**
