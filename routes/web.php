@@ -25,7 +25,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::get('/test', function() { return "Good Bye"; });
 
-Route::get('/rooms', ShowRoomsController::class);
+Route::get('/rooms/{roomType?}', ShowRoomsController::class);
 
 //We can use one by one like this
 
