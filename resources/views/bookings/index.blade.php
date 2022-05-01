@@ -41,7 +41,7 @@
                       View
                     </a>
                     <a
-                         {{--href="{{ action('BookingController@edit', ['booking' => $booking->id]) }}"--}}                        alt="Edit"
+                         href="{{ action('App\Http\Controllers\BookingController@edit', ['booking' => $booking->id]) }}"                        alt="Edit"
                         title="Edit">
                       Edit
                     </a>
