@@ -17,7 +17,7 @@ class BookingController extends Controller
     public function index()
     {
      //   \DB::table('booking')->get()->dd(); //Tests that the comunication with database is working, and Dumps the data and Die
-        $bookings = DB::table('bookings')->get();
+        $bookings =Booking::paginate(3);
         return view('bookings.index')
             ->with('bookings', $bookings);
     }
@@ -33,6 +33,7 @@ class BookingController extends Controller
         $rooms = DB::table('rooms')->get()->pluck('number', 'id');
         return view('bookings.create')
             ->with('users', $users)
+            ->with('booking', (new Booking()))
             ->with('rooms', $rooms);
     }
 
