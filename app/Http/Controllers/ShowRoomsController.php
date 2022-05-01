@@ -16,14 +16,20 @@ class ShowRoomsController extends Controller
      */
     public function __invoke(Request $request, $roomType = null)
     {
-       if (isset($roomType)) {
+        $rooms = Room::byType($roomType)->get();
+
+      // We can use WITHTRASHED() and WHERE() here as well
+      //  $rooms = Room::byType($roomType)->withTrashed()->where()->get();
+      
+      // Just another way of filter the data.
+      /*  if (isset($roomType)) {
            $rooms = Room::where('room_type_id', $roomType)->get();
            // If we want to compare to some thing we can use like this.
            //  $rooms = Room::where('room_type_id', '!=', $roomType)->get();
 
        }else{
             $rooms = Room::get();
-       }
+       } */
        
         /*  $rooms = Room::get();
         if ($request->query('id') !== null){
