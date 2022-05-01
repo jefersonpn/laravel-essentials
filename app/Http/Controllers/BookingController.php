@@ -16,6 +16,7 @@ class BookingController extends Controller
      */
     public function index()
     {
+        //Booking::withTrashed()->get()->dd(); //checking if is deleted but not on the database
      //   \DB::table('booking')->get()->dd(); //Tests that the comunication with database is working, and Dumps the data and Die
         $bookings =Booking::paginate(3);
         return view('bookings.index')
@@ -46,16 +47,17 @@ class BookingController extends Controller
     public function store(Request $request)
     {
         //dd($request->all()); //Testing the form
-        $id = DB::table('bookings')->insertGetId([
+        $booking = Booking::create($request->input());
+        /* $id = DB::table('bookings')->insertGetId([
             'room_id' => $request->input('room_id'),
             'start' => $request->input('start'),
             'end' => $request->input('end'),
             'is_reservation' => $request->input('is_reservation', false),
             'is_paid' => $request->input('is_paid', false),
             'notes' => $request->input('notes'),
-       ]);
+       ]); */
        DB::table('bookings_users')->insert([
-           'booking_id' => $id,
+           'booking_id' => $booking->id,
            'user_id' => $request->input('user_id'),
        ]);
        return redirect()->action('App\Http\Controllers\BookingController@index');
@@ -102,7 +104,9 @@ class BookingController extends Controller
      */
     public function update(Request $request, Booking $booking)
     {
-        DB::table('bookings')
+        $booking->fill($request->input());
+        $booking->save();
+        /* DB::table('bookings')
         ->where('id', $booking->id)
         ->update([
             'room_id' => $request->input('room_id'),
@@ -111,7 +115,7 @@ class BookingController extends Controller
             'is_reservation' => $request->input('is_reservation', false),
             'is_paid' => $request->input('is_paid', false),
             'notes' => $request->input('notes'),
-       ]);
+       ]); */
        DB::table('bookings_users')
        ->where('booking_id', $booking->id)
        ->update([
@@ -129,8 +133,9 @@ class BookingController extends Controller
     public function destroy(Booking $booking)
     {
         DB::table('bookings_users')->where('booking_id', $booking->id)->delete();
-        DB::table('bookings')->where('id', $booking->id)->delete();
-        return redirect()->action('App\Http\Controllers\BookingController@index');
+        $booking->delete();
+        /*         DB::table('bookings')->where('id', $booking->id)->delete();
+ */        return redirect()->action('App\Http\Controllers\BookingController@index');
 
     }
 }
